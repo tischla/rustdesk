@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_hbb/common.dart';
 import 'package:flutter_hbb/common/widgets/audio_input.dart';
+import 'package:flutter_hbb/common/server_profiles.dart';
 import 'package:flutter_hbb/common/widgets/setting_widgets.dart';
 import 'package:flutter_hbb/consts.dart';
 import 'package:flutter_hbb/desktop/pages/desktop_home_page.dart';
@@ -1826,7 +1827,36 @@ class _NetworkState extends State<_Network> with AutomaticKeepAliveClientMixin {
           network(context),
         ]),
       ),
+      // Client-side only (stored in the user's local config), therefore not behind the
+      // network settings lock which protects the service's server configuration.
+      if (!isWeb) serverProfilesCard(context),
     ]).marginOnly(bottom: _kListViewBottomMargin);
+  }
+
+  Widget serverProfilesCard(BuildContext context) {
+    loadServerProfiles();
+    return _Card(title: 'Server profiles', children: [
+      Obx(() => ListTile(
+            leading: Icon(Icons.dns_outlined, color: _accentColor),
+            title: Text(
+              translate('Manage server profiles'),
+              style: TextStyle(fontSize: _kContentFontSize),
+            ),
+            subtitle: Text(
+              serverProfiles.isEmpty
+                  ? translate('server-profiles-empty')
+                  : serverProfiles.map((e) => e.name).join(', '),
+              style: const TextStyle(fontSize: 12),
+            ),
+            onTap: () => showServerProfilesDialog(gFFI.dialogManager),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10),
+            ),
+            contentPadding: const EdgeInsets.symmetric(horizontal: 16),
+            minLeadingWidth: 0,
+            horizontalTitleGap: 10,
+          )),
+    ]);
   }
 
   Widget network(BuildContext context) {

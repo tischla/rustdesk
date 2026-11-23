@@ -17,6 +17,7 @@ mod client;
 mod lan;
 #[cfg(not(any(target_os = "ios")))]
 mod rendezvous_mediator;
+pub mod server_profiles;
 #[cfg(not(any(target_os = "ios")))]
 pub use self::rendezvous_mediator::*;
 /// cbindgen:ignore

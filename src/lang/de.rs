@@ -830,5 +830,17 @@ pub static ref T: std::collections::HashMap<&'static str, &'static str> =
         ("drm-capture-tip", "Nimmt den Bildschirm über den RustDesk-Dienst direkt von der Grafikkarte auf, ohne die Wayland-Abfrage zur Bildschirmfreigabe, auch auf dem Anmeldebildschirm. Funktioniert möglicherweise nicht auf jedem Gerät. Wenn Verbindungen weiterhin eine Bildschirmfreigabe verlangen, deaktivieren Sie dies oder verwenden Sie X11. Eine Änderung trennt die aktuellen Sitzungen."),
         ("wayland-drm-tip", "Für unbeaufsichtigten Zugriff unter Wayland DRM-Bildschirmaufnahme versuchen, sonst X11 verwenden."),
         ("login-wayland-drm-tip", "Für den Wayland-Anmeldebildschirm DRM-Bildschirmaufnahme versuchen oder auf X11 umstellen."),
+        ("Server profiles", "Serverprofile"),
+        ("Manage server profiles", "Serverprofile verwalten"),
+        ("Description", "Beschreibung"),
+        ("Key", "Schlüssel"),
+        ("Invalid ID Server", "Ungültiger ID-Server"),
+        ("Invalid Key", "Ungültiger Schlüssel"),
+        ("server-profile-service", "Server des Dienstes (Standard)"),
+        ("server-profile-selector-tip", "Server für ausgehende Verbindungen. Der RustDesk-Dienst ist davon nicht betroffen. Pro Verbindung kann ein Profil auch mit <ID>@<Profil> gewählt werden."),
+        ("server-profiles-tip", "Profile gelten nur für ausgehende Verbindungen dieses Clients. Der Dienst bleibt mit dem unter ID-/Relay-Server eingestellten Server verbunden. Verbinden mit <ID>@<Profil> oder Profil neben der Schaltfläche Verbinden auswählen."),
+        ("server-profiles-empty", "Keine Serverprofile angelegt"),
+        ("server-profile-name-tip", "Name: 1-32 Zeichen, nur Buchstaben, Ziffern, - und _"),
+        ("server-profile-name-exists", "Ein Profil mit diesem Namen existiert bereits"),
     ].iter().cloned().collect();
 }

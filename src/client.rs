@@ -2917,7 +2917,12 @@ impl LoginConfigHandler {
         conn_token: Option<String>,
         login_method: &str,
     ) {
-        let mut id = id;
+        // Client-side server profiles: `<id>@<profile>` (or a plain `<id>` with a default
+        // profile set) is expanded to `<id>@<host>?key=<key>`. The service is not affected.
+        let (mut id, server_profile) = crate::server_profiles::resolve_id(&id, switch_uuid.is_none());
+        if let Some(name) = server_profile.as_ref() {
+            log::info!("Using server profile {:?} for this connection", name);
+        }
         if id.contains("@") {
             let mut v = id.split("@");
             let raw_id: &str = v.next().unwrap_or_default();
@@ -2945,7 +2950,12 @@ impl LoginConfigHandler {
                 force_relay = true;
             }
             self.other_server = Some((real_id.clone(), server.to_owned(), key));
-            id = format!("{real_id}@{server}");
+            // Keep the profile name in the peer id (recent list, peer config file), so the
+            // entry follows the profile if its host or key is changed later.
+            id = match server_profile.as_ref() {
+                Some(name) => format!("{real_id}@{name}"),
+                None => format!("{real_id}@{server}"),
+            };
         } else {
             let real_id = crate::ui_interface::handle_relay_id(&id);
             if real_id != id {

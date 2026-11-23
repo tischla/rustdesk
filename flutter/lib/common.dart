@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:flutter_hbb/common/server_profiles.dart';
 import 'dart:convert';
 import 'dart:math';
 
@@ -2627,6 +2628,8 @@ connect(BuildContext context, String id,
   final oldId = id;
   id = await bind.mainHandleRelayId(id: id);
   forceRelay = id != oldId || forceRelay;
+  // Bind plain ids to the server profile selected for outgoing connections.
+  id = applyServerProfile(id);
   assert(!(isFileTransfer && isTcpTunneling && isRDP),
       "more than one connect type");
 

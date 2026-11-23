@@ -16,6 +16,7 @@ import 'package:flutter_hbb/models/peer_model.dart';
 
 import '../../common.dart';
 import '../../common/formatter/id_formatter.dart';
+import '../../common/server_profiles.dart';
 import '../../common/widgets/peer_tab_page.dart';
 import '../../common/widgets/autocomplete.dart';
 import '../../models/platform_model.dart';
@@ -551,6 +552,9 @@ class _ConnectionPageState extends State<ConnectionPage>
             Padding(
               padding: const EdgeInsets.only(top: 13.0),
               child: Row(mainAxisAlignment: MainAxisAlignment.end, children: [
+                // Server profile for outgoing connections (hidden if none defined)
+                const Expanded(child: ServerProfileSelector()),
+                const SizedBox(width: 8),
                 SizedBox(
                   height: 28.0,
                   child: ElevatedButton(
